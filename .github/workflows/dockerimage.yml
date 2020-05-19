@@ -7,9 +7,8 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  commons:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       #- name: Build the Docker image
@@ -26,6 +25,11 @@ jobs:
           tag_with_ref: false
           add_git_labels: true
           tags: latest
+  devops:
+    runs-on: ubuntu-latest
+    needs: commons
+    steps:
+      - uses: actions/checkout@v2
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1.1.0
         with:
@@ -38,6 +42,11 @@ jobs:
           tag_with_ref: false
           add_git_labels: true
           tags: latest
+  npm:
+    runs-on: ubuntu-latest
+    needs: commons
+    steps:
+      - uses: actions/checkout@v2
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1.1.0
         with:
@@ -50,6 +59,11 @@ jobs:
           tag_with_ref: false
           add_git_labels: true
           tags: latest
+  python:
+    runs-on: ubuntu-latest
+    needs: commons
+    steps:
+      - uses: actions/checkout@v2
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1.1.0
         with:
@@ -62,6 +76,11 @@ jobs:
           tag_with_ref: false
           add_git_labels: true
           tags: latest
+  golang:
+    runs-on: ubuntu-latest
+    needs: commons
+    steps:
+      - uses: actions/checkout@v2
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1.1.0
         with:
@@ -74,6 +93,11 @@ jobs:
           tag_with_ref: false
           add_git_labels: true
           tags: latest
+  k8soperator:
+    runs-on: ubuntu-latest
+    needs: golang
+    steps:
+      - uses: actions/checkout@v2
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1.1.0
         with:
