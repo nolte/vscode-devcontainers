@@ -1,4 +1,4 @@
-FROM nolte/vscode-dev-python:latest
+FROM docker.pkg.github.com/nolte/vscode-devcontainers/python:latest
 
 RUN mkdir -p ${WORKON_HOME} \
   && virtualenv -p python3 ${WORKON_HOME}/cookiecutter \
