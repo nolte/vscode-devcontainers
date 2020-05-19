@@ -14,7 +14,7 @@ WORKDIR /tmp/race/lib/tsan/go
 RUN sed -e 's,-Wno-unknown-warning-option,-Wno-error=deprecated,' -i buildgo.sh
 RUN ./buildgo.sh
 
-FROM nolte/vscode-commons
+FROM docker.pkg.github.com/nolte/vscode-devcontainers/commons:latest
 
 ARG BUILD_DATE
 ARG VCS_REF

@@ -1,5 +1,5 @@
 
-FROM nolte/vscode-commons
+FROM docker.pkg.github.com/nolte/vscode-devcontainers/commons:latest
 
 COPY --chown=${USER_UID}:${USER_GID} files/python-env.txt /home/${USERNAME}/vens/python-env-iot.txt
 

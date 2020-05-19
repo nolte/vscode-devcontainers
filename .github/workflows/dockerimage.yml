@@ -20,9 +20,69 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: nolte/vscode-devcontainers/vscode-commons
+          repository: nolte/vscode-devcontainers/commons
           dockerfile: ./images/commons/Dockerfile
           path: ./images/commons/.
+          tag_with_ref: false
+          add_git_labels: true
+          tags: latest
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: nolte/vscode-devcontainers/devops
+          dockerfile: ./images/devops/Dockerfile
+          path: ./images/devops/.
+          tag_with_ref: false
+          add_git_labels: true
+          tags: latest
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: nolte/vscode-devcontainers/npm
+          dockerfile: ./images/npm/Dockerfile
+          path: ./images/npm/.
+          tag_with_ref: false
+          add_git_labels: true
+          tags: latest
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: nolte/vscode-devcontainers/python
+          dockerfile: ./images/python/Dockerfile
+          path: ./images/python/.
+          tag_with_ref: false
+          add_git_labels: true
+          tags: latest
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: nolte/vscode-devcontainers/golang
+          dockerfile: ./images/golang/Dockerfile
+          path: ./images/golang/.
+          tag_with_ref: false
+          add_git_labels: true
+          tags: latest
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: nolte/vscode-devcontainers/k8s-operator
+          dockerfile: ./images/k8sOperator/Dockerfile
+          path: ./images/k8sOperator/.
           tag_with_ref: false
           add_git_labels: true
           tags: latest

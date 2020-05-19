@@ -1,11 +1,11 @@
-FROM nolte/vscode-dev-golang
+FROM docker.pkg.github.com/nolte/vscode-devcontainers/golang:latest
 
 USER root
 
 ## copy common tools from devops container
-COPY --from=nolte/vscode-devops /usr/local/bin/helm /usr/local/bin/helm
-COPY --from=nolte/vscode-devops /usr/local/bin/kubectl /usr/local/bin/kubectl
-COPY --from=nolte/vscode-devops /usr/local/bin/kind /usr/local/bin/kind
+COPY --from=docker.pkg.github.com/nolte/vscode-devcontainers/devops:latest /usr/local/bin/helm /usr/local/bin/helm
+COPY --from=docker.pkg.github.com/nolte/vscode-devcontainers/devops:latest /usr/local/bin/kubectl /usr/local/bin/kubectl
+COPY --from=docker.pkg.github.com/nolte/vscode-devcontainers/devops:latest /usr/local/bin/kind /usr/local/bin/kind
 
 ENV RELEASE_VERSION=v0.16.0
 

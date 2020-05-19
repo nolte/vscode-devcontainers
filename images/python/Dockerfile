@@ -1,5 +1,5 @@
 
-FROM nolte/vscode-commons
+FROM docker.pkg.github.com/nolte/vscode-devcontainers/commons:latest
 
 RUN mkdir -p ${WORKON_HOME} \
   && virtualenv -p python3 ${WORKON_HOME}/development \
