@@ -12,5 +12,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Build the Docker image
-        run: docker build -f ./images/commons/Dockerfile -t vscode-commons:$(date +%s) ./images/commons/.
+      #- name: Build the Docker image
+      #  run: docker build -f ./images/commons/Dockerfile -t vscode-commons:$(date +%s) ./images/commons/.
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: nolte/vscode-devcontainers/vscode-commons
+          dockerfile: ./images/commons/Dockerfile
+          path: ./images/commons/.
+          tag_with_ref: false
+          add_git_labels: true
+          tags: latest
