@@ -1,0 +1,51 @@
+{
+  "name": "commonstest",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
+  "service": "vscode",
+  "runServices": [
+    "vscode"
+  ],
+  "shutdownAction": "stopCompose",
+  "postCreateCommand": "chmod -R 700 .git",
+  "workspaceFolder": "/workspace",
+  "extensions": [
+    "alefragnani.Bookmarks",
+    "bierner.emojisense",
+    "christian-kohler.path-intellisense",
+    "davidanson.vscode-markdownlint",
+    "docsmsft.docs-article-templates",
+    "docsmsft.docs-markdown",
+    "eamodio.gitlens",
+    "Gruntfuggly.todo-tree",
+    "IBM.output-colorizer",
+    "jrebocho.vscode-random",
+    "mhutchie.git-graph",
+    "mohsen1.prettify-json",
+    "ms-azuretools.vscode-docker",
+    "pascalreitermann93.vscode-yaml-sort",
+    "quicktype.quicktype",
+    "redhat.vscode-yaml",
+    "shardulm94.trailing-spaces",
+    "spikespaz.vscode-smoothtype",
+    "stkb.rewrap",
+    "tyriar.sort-lines",
+    "vscode-ext.sync-rsync",
+    "vscode-icons-team.vscode-icons"
+  ],
+  "settings": {
+    // General settings
+    "files.eol": "\n",
+    "files.encoding": "UTF-8",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.renderWhitespace": "all",
+    // Docker
+    "remote.extensionKind": {
+      "ms-azuretools.vscode-docker": "workspace"
+    },
+    "python.pythonPath": "/home/vscode/.virtualenvs/development/bin/python",
+    "python.terminal.activateEnvInCurrentTerminal": true
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "project_slug": "",
+  "project_type": "default",
+  "extra_dockerfile": "n",
+  "masterdata": {
+    "configs": {
+      "default": {
+        "image": "nolte/vscode-commons:latest",
+        "vscode": {
+          "workspace": "/workspace",
+          "extentions": [
+            "alefragnani.Bookmarks",
+            "bierner.emojisense",
+            "christian-kohler.path-intellisense",
+            "davidanson.vscode-markdownlint",
+            "docsmsft.docs-article-templates",
+            "docsmsft.docs-markdown",
+            "eamodio.gitlens",
+            "Gruntfuggly.todo-tree",
+            "IBM.output-colorizer",
+            "jrebocho.vscode-random",
+            "mhutchie.git-graph",
+            "mohsen1.prettify-json",
+            "ms-azuretools.vscode-docker",
+            "pascalreitermann93.vscode-yaml-sort",
+            "quicktype.quicktype",
+            "redhat.vscode-yaml",
+            "shardulm94.trailing-spaces",
+            "spikespaz.vscode-smoothtype",
+            "stkb.rewrap",
+            "tyriar.sort-lines",
+            "vscode-ext.sync-rsync",
+            "vscode-icons-team.vscode-icons"
+          ]
+        }
+      },
+      "iot": {
+        "image": "nolte/vscode-dev-iot:latest",
+        "vscode": {
+          "workspace": "/workspace",
+          "extentions": [
+            "platformio.platformio-ide"
+          ]
+        }
+      },
+      "golang": {
+        "image": "nolte/vscode-dev-golang:latest",
+        "vscode": {
+          "extentions": [
+            "ms-vscode.go"
+          ]
+        }
+      },
+      "python": {
+        "image": "nolte/vscode-commons:latest",
+        "vscode": {
+          "extentions": [
+            "ms-python.python"
+          ]
+        }
+      },
+      "devops": {
+        "image": "nolte/vscode-dev-devops:latest",
+        "vscode": {
+          "extentions": [
+            "mauve.terraform",
+            "ms-kubernetes-tools.kind-vscode",
+            "ms-kubernetes-tools.vscode-kubernetes-tools",
+            "owenfarrell.vscode-vault",
+            "vscoss.vscode-ansible"
+          ]
+        }
+      }
+    }
+  },
+  "_extensions": [
+    "jinja2_ansible_filters.AnsibleCoreFiltersExtension"
+  ]
+}

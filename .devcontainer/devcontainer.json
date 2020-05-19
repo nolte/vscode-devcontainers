@@ -1,0 +1,73 @@
+{
+    "name": "project-dev",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "service": "vscode",
+    "runServices": [
+        "vscode"
+    ],
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "chmod -R 700 .git",
+    "workspaceFolder": "/workspace",
+    // "overrideCommand": "",
+    "extensions": [
+        // General backend
+        "mohsen1.prettify-json",
+        "redhat.vscode-yaml", // Kubernetes and Kedge syntax support
+        // Go
+        //"ms-vscode.go",
+        // Console
+        "IBM.output-colorizer",
+        // Git
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        // Other linters
+        "davidanson.vscode-markdownlint",
+        "ms-azuretools.vscode-docker",
+        // Other helpers
+        "shardulm94.trailing-spaces",
+        "Gruntfuggly.todo-tree",
+        "bierner.emojisense",
+        "stkb.rewrap", // rewrap comments after n characters on one line
+        "christian-kohler.path-intellisense",
+        // Other
+        "jrebocho.vscode-random", // generate random values
+        "alefragnani.Bookmarks",
+        "quicktype.quicktype", // Paste JSON as code
+        "spikespaz.vscode-smoothtype", // smooth cursor animation
+        "vscode-icons-team.vscode-icons",
+        // markdown
+        "docsmsft.docs-article-templates",
+        "docsmsft.docs-markdown",
+        "samuelcolvin.jinjahtml",
+        // python stuff
+        "ms-python.python",
+        "LittleFoxTeam.vscode-python-test-adapter"
+    ],
+    "settings": {
+        // General settings
+        "files.eol": "\n",
+        // Docker
+        "remote.extensionKind": {
+            "ms-azuretools.vscode-docker": "workspace"
+        },
+        "[jsonc]": {
+            // disable because cookiecutter autoformat templates
+            "editor.formatOnSave": false
+        },
+        // python test stuff
+        "python.pythonPath": "/home/vscode/.virtualenvs/cookiecutter/bin/python",
+        "python.defaultInterpreterPath": "/home/vscode/.virtualenvs/cookiecutter/bin/python",
+        "python.testing.pytestArgs": [
+          // https://github.com/microsoft/vscode-python/issues/9553
+          "--rootdir=/workspace/cookiecutter-project"
+        ],
+        "python.testing.unittestEnabled": false,
+        "python.testing.nosetestsEnabled": false,
+        "python.testing.pytestEnabled": true,
+        "python.terminal.activateEnvInCurrentTerminal": true
+        
+
+    }
+}

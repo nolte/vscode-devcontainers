@@ -1,0 +1,13 @@
+---
+repos:
+  - repo: "https://github.com/pre-commit/pre-commit-hooks"
+    rev: v2.4.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: |
+          (?x)(
+              .md|
+              .bumpversion.cfg
+          )
+      - id: end-of-file-fixer
+        exclude: ".bumpversion.cfg"

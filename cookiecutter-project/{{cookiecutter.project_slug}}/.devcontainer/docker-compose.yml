@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  vscode:
+    {% if cookiecutter.extra_dockerfile == "n" -%}image: "{{ cookiecutter.masterdata.configs[cookiecutter.project_type].image | default(cookiecutter.masterdata.configs['default'].image) }}"{%- else -%}build: .{%- endif %}
+    volumes:
+      - "../:{{ cookiecutter.masterdata.configs[cookiecutter.project_type].vscode.workspace | default(cookiecutter.masterdata.configs['default'].vscode.workspace) }}:cached"
+      - ~/.ssh:/home/vscode/.ssh:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Europe/Berlin # $(cat /etc/timezone)
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    entrypoint: zsh -c "while sleep 1000; do :; done"
+    network_mode: "host"

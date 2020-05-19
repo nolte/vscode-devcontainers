@@ -1,0 +1,8 @@
+images/devops/providers
+*~
+.tox
+#Vagrant Files
+.vagrant/*
+__pycache__
+*.retry
+.vscode

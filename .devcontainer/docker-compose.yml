@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  vscode:
+    build: .
+    volumes:
+      - ../:/workspace:cached
+      - ~/.ssh:/home/vscode/.ssh:ro
+      - ~/.ssh:/root/.ssh:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.password-store:/home/vscode/.password-store:rw
+      - ~/.gnupg:/home/vscode/.gnupg/:rw
+    environment:
+      - TZ=Europe/Berlin # $(cat /etc/timezone)
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    entrypoint: zsh -c "while sleep 1000; do :; done"
+    network_mode: "host"

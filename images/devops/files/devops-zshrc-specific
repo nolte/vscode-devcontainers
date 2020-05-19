@@ -1,0 +1,2 @@
+plugins=(vscode git colorize docker docker-compose kubetail kubectl terraform pass)
+source <(kubectl completion zsh)
