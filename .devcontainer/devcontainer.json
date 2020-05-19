@@ -43,7 +43,8 @@
         "samuelcolvin.jinjahtml",
         // python stuff
         "ms-python.python",
-        "LittleFoxTeam.vscode-python-test-adapter"
+        "LittleFoxTeam.vscode-python-test-adapter",
+        "cschleiden.vscode-github-actions"
     ],
     "settings": {
         // General settings

@@ -95,7 +95,7 @@ jobs:
           tags: latest
   k8soperator:
     runs-on: ubuntu-latest
-    needs: golang
+    needs: [golang, devops]
     steps:
       - uses: actions/checkout@v2
       - name: Push to GitHub Packages
