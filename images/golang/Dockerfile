@@ -85,5 +85,8 @@ RUN apk add --update-cache \
 
 RUN npm install postcss-cli
 
+RUN mkdir -p /go/src && chown -R ${USER_UID}:${USER_GID} /go/src \
+  && mkdir -p /go/pkg && chown -R ${USER_UID}:${USER_GID} /go/pkg \
+  && mkdir -p /go/bin && chown -R ${USER_UID}:${USER_GID} /go/bin 
 
 USER ${USERNAME}
