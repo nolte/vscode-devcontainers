@@ -60,4 +60,4 @@ RUN mkdir -p ${WORKON_HOME} \
   && pip install -r /home/${USERNAME}/vens/python-env-basement.txt \
   && deactivate
 
-COPY --chown=${USER_UID}:${USER_GID} files/.zshrc-specific files/.welcome.sh /home/${USERNAME}/
+COPY --chown=${USER_UID}:${USER_GID} files/.zshrc-specific files/.zshrc files/.welcome.sh /home/${USERNAME}/

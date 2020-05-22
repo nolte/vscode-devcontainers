@@ -33,6 +33,10 @@ ENV TERRAFORM_MINIO_PROVIDER_VERSION=1.1.0
 ENV TERRAFORM_KEYCLOAK_PROVIDER_VERSION=1.18.0
 ENV TERRAFORM_HARBOR_PROVIDER_VERSION=0.0.7
 
+ENV SWAGGER_VERSION=v0.23.0
+
+ENV TERRAFORM_DOC_VERSION=v0.9.1
+
 RUN apk add --update-cache \
   ncurses \
   && rm -rf /var/cache/apk/* 
@@ -80,6 +84,11 @@ RUN curl -Lo ./vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/v
 RUN curl -Lo /usr/local/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc \
   && chmod +x /usr/local/bin/mc 
 
+RUN curl -Lo /usr/local/bin/swagger https://github.com/go-swagger/go-swagger/releases/download/${SWAGGER_VERSION}/swagger_linux_amd64 \
+  && chmod +x /usr/local/bin/swagger 
+
+RUN curl -Lo /usr/local/bin/terraform-doc https://github.com/segmentio/terraform-docs/releases/download/${TERRAFORM_DOC_VERSION}/terraform-docs-${TERRAFORM_DOC_VERSION}-$(uname | tr '[:upper:]' '[:lower:]')-amd64 \
+  && chmod +x /usr/local/bin/terraform-doc 
 
 USER ${USERNAME}
 
