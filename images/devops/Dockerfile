@@ -90,6 +90,14 @@ RUN curl -Lo /usr/local/bin/swagger https://github.com/go-swagger/go-swagger/rel
 RUN curl -Lo /usr/local/bin/terraform-doc https://github.com/segmentio/terraform-docs/releases/download/${TERRAFORM_DOC_VERSION}/terraform-docs-${TERRAFORM_DOC_VERSION}-$(uname | tr '[:upper:]' '[:lower:]')-amd64 \
   && chmod +x /usr/local/bin/terraform-doc 
 
+
+RUN curl -sSL -k https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz -o /tmp/shellcheck-stable.tar.xz \
+  && tar -xvf /tmp/shellcheck-stable.tar.xz -C /tmp \
+  && mv /tmp/shellcheck-stable/shellcheck /usr/local/bin/shellcheck \
+  && chmod +x /usr/local/bin/shellcheck \
+  && rm -rf /tmp/shellcheck-stable \
+  && rm /tmp/shellcheck-stable.tar.xz
+
 USER ${USERNAME}
 
 COPY --chown=${USER_UID}:${USER_GID} files/python-env-usage-ansible.txt /home/${USERNAME}/vens/python-env-usage-ansible.txt

@@ -74,6 +74,7 @@ RUN go get -v \
   golang.org/x/tools/cmd/goimports \
   github.com/ahmetb/gen-crd-api-reference-docs \
   golang.org/x/tools/cmd/godoc \
+  golang.org/x/lint/golint \
   2>&1 && \
   rm -rf $GOPATH/pkg/* $GOPATH/src/* /root/.cache/go-build && \
   chown -R ${USER_UID}:${USER_GID} $GOPATH && \

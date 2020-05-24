@@ -6,6 +6,9 @@ ENV USER_UID=1000
 ENV USER_GID=1000
 ENV WORKON_HOME=/home/${USERNAME}/.virtualenvs
 
+# https://github.com/cli/cli/releases/
+ENV GH_CLI_VERSION=0.8.0
+
 USER root
 
 # Adding fonts
@@ -29,7 +32,8 @@ RUN echo "**** install Python ****" && \
   boost-regex \
   sed \
   jq tar rsync unzip tree vim \
-  bash \  
+  bash \
+  zip \
   libc6-compat python3 build-base python3-dev libffi libffi-dev openssl-dev \
   linux-headers gnupg openssl gcc build-base libc-dev musl-dev ca-certificates \
   && rm -rf /var/cache/apk/* && \
@@ -48,6 +52,19 @@ RUN mkdir -p /opt/pass && \
   ln -s /opt/pass/password-store-1.7.3 /opt/pass/current && \
   cd /opt/pass/current/ && \
   make install
+
+RUN mkdir -p /home/$USERNAME/.vscode-server/extensions \
+  /home/$USERNAME/.vscode-server-insiders/extensions \
+  && chown -R $USERNAME \
+  /home/$USERNAME/.vscode-server \
+  /home/$USERNAME/.vscode-server-insiders
+
+RUN curl -Lo ./gh.tar.gz https://github.com/cli/cli/releases/download/v${GH_CLI_VERSION}/gh_${GH_CLI_VERSION}_linux_amd64.tar.gz \
+  && tar -zxf ./gh.tar.gz \
+  && mv ./gh_${GH_CLI_VERSION}_linux_amd64/bin/gh /usr/local/bin/gh \
+  && chmod +x /usr/local/bin/gh \
+  && rm ./gh.tar.gz \
+  && rm -rf ./gh_${GH_CLI_VERSION}_linux_amd64
 
 USER ${USERNAME}
 
