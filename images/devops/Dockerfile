@@ -8,7 +8,7 @@ FROM docker.pkg.github.com/nolte/vscode-devcontainers/commons:latest
 USER root
 
 # https://github.com/helm/helm/releases
-ENV HELM_VERSION=v3.2.1
+ENV HELM_VERSION=v3.2.4
 
 # https://github.com/kubernetes-sigs/kind/releases
 ENV KIND_VERSION=v0.8.1
@@ -17,13 +17,13 @@ ENV KIND_VERSION=v0.8.1
 ENV DOCKERX_VERSION=v0.4.1
 
 # https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION=0.12.25
+ENV TERRAFORM_VERSION=0.12.26
 
 # https://github.com/bats-core/bats-core
 ENV BATS_VERSION=1.2.0
 
 # https://github.com/mikefarah/yq/releases
-ENV YQ_VERSION=3.3.0
+ENV YQ_VERSION=3.3.2
 
 # https://github.com/hashicorp/vault/releases
 ENV VAULT_VERSION=1.4.1
@@ -31,7 +31,7 @@ ENV VAULT_VERSION=1.4.1
 ENV TERRAFORM_KUBECTL_PROVIDER_VERSION=v1.3.3
 ENV TERRAFORM_MINIO_PROVIDER_VERSION=1.1.0
 ENV TERRAFORM_KEYCLOAK_PROVIDER_VERSION=1.18.0
-ENV TERRAFORM_HARBOR_PROVIDER_VERSION=0.0.7
+ENV TERRAFORM_HARBOR_PROVIDER_VERSION=0.1.1
 
 ENV SWAGGER_VERSION=v0.23.0
 
@@ -130,12 +130,28 @@ RUN mkdir -p /tmp/terraform-provider-keycloak/ \
   && chmod +x /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-keycloak*
 
 
-RUN mkdir -p /tmp/terraform-provider-harbor/ \
-  && curl -Lo /tmp/terraform-provider-harbor/terraform-provider-harbor.zip https://github.com/BESTSELLER/terraform-harbor-provider/releases/download/v${TERRAFORM_HARBOR_PROVIDER_VERSION}/terraform-harbor-provider-linux-amd64.zip \
-  && unzip -j "/tmp/terraform-provider-harbor/terraform-provider-harbor.zip" "terraform-harbor-provider" -d /home/${USERNAME}/.terraform.d/plugins/linux_amd64 \
-  && rm -rf /tmp/terraform-provider-harbor \
-  && chmod +x /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-harbor-provider \
-  && mv /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-harbor-provider /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-harbor
+#RUN mkdir -p /tmp/terraform-provider-harbor/ \
+#  && curl -Lo /tmp/terraform-provider-harbor/terraform-provider-harbor.zip https://github.com/BESTSELLER/terraform-harbor-provider/releases/download/v${TERRAFORM_HARBOR_PROVIDER_VERSION}/terraform-harbor-provider-linux-amd64.zip \
+#  && unzip -j "/tmp/terraform-provider-harbor/terraform-provider-harbor.zip" "terraform-harbor-provider" -d /home/${USERNAME}/.terraform.d/plugins/linux_amd64 \
+#  && rm -rf /tmp/terraform-provider-harbor \
+#  && chmod +x /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-harbor-provider \
+#  && mv /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-harbor-provider /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-harbor
+
+
+RUN mkdir -p /home/${USERNAME}/.terraform.d/plugins/linux_amd64 \
+  && wget -qO- https://github.com/nolte/terraform-provider-harbor/releases/download/release/v${TERRAFORM_HARBOR_PROVIDER_VERSION}/terraform-provider-harbor_v${TERRAFORM_HARBOR_PROVIDER_VERSION}_linux_amd64.tar.gz | tar -xvz -C ~/.terraform.d/plugins/linux_amd64/ \
+  && chmod +x /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-harbor 
+
+ENV TERRAFORM_PASS_PROVIDER_VERSION=1.2.1
+
+
+RUN mkdir -p /tmp/terraform-provider-pass/ \
+  && curl -Lo /tmp/terraform-provider-pass/terraform-provider-pass.zip https://github.com/camptocamp/terraform-provider-pass/releases/download/${TERRAFORM_PASS_PROVIDER_VERSION}/terraform-provider-pass_${TERRAFORM_PASS_PROVIDER_VERSION}_linux_amd64.zip \
+  && unzip -j "/tmp/terraform-provider-pass/terraform-provider-pass.zip" "bin/terraform-provider-pass_${TERRAFORM_PASS_PROVIDER_VERSION}_linux_amd64" -d /home/${USERNAME}/.terraform.d/plugins/linux_amd64 \
+  && rm -rf /tmp/terraform-provider-pass \
+  && chmod +x /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-pass*
+
+
 
 # TODO Find better way for local compiled providers
 # COPY --chown=${USER_UID}:${USER_GID} ./providers/terraform-provider-gitea_v1.0_linux_amd64 /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-gitea
