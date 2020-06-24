@@ -98,6 +98,17 @@ RUN curl -sSL -k https://github.com/koalaman/shellcheck/releases/download/stable
   && rm -rf /tmp/shellcheck-stable \
   && rm /tmp/shellcheck-stable.tar.xz
 
+RUN curl -Lo /usr/local/bin/skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 \
+  && chmod +x /usr/local/bin/skaffold
+
+ENV TEKTONCD_CLI_VERSION=0.10.0
+
+# install tekton binary
+RUN curl -LO https://github.com/tektoncd/cli/releases/download/v${TEKTONCD_CLI_VERSION}/tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz \
+    && tar xvzf tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz -C /usr/local/bin tkn \
+    && rm tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz \
+    && chmod +x /usr/local/bin/tkn
+
 USER ${USERNAME}
 
 COPY --chown=${USER_UID}:${USER_GID} files/python-env-usage-ansible.txt /home/${USERNAME}/vens/python-env-usage-ansible.txt
@@ -144,14 +155,12 @@ RUN mkdir -p /home/${USERNAME}/.terraform.d/plugins/linux_amd64 \
 
 ENV TERRAFORM_PASS_PROVIDER_VERSION=1.2.1
 
-
 RUN mkdir -p /tmp/terraform-provider-pass/ \
   && curl -Lo /tmp/terraform-provider-pass/terraform-provider-pass.zip https://github.com/camptocamp/terraform-provider-pass/releases/download/${TERRAFORM_PASS_PROVIDER_VERSION}/terraform-provider-pass_${TERRAFORM_PASS_PROVIDER_VERSION}_linux_amd64.zip \
   && unzip -j "/tmp/terraform-provider-pass/terraform-provider-pass.zip" "bin/terraform-provider-pass_${TERRAFORM_PASS_PROVIDER_VERSION}_linux_amd64" -d /home/${USERNAME}/.terraform.d/plugins/linux_amd64 \
   && rm -rf /tmp/terraform-provider-pass \
-  && chmod +x /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-pass*
-
-
+  && chmod +x /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-pass_${TERRAFORM_PASS_PROVIDER_VERSION}_linux_amd64 \
+  && mv /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-pass_${TERRAFORM_PASS_PROVIDER_VERSION}_linux_amd64 /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-pass
 
 # TODO Find better way for local compiled providers
 # COPY --chown=${USER_UID}:${USER_GID} ./providers/terraform-provider-gitea_v1.0_linux_amd64 /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-gitea
