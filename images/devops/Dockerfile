@@ -13,20 +13,20 @@ ENV HELM_VERSION=v3.2.4
 # https://github.com/kubernetes-sigs/kind/releases
 ENV KIND_VERSION=v0.8.1
 
-#https://github.com/docker/buildx/releases
+# https://github.com/docker/buildx/releases
 ENV DOCKERX_VERSION=v0.4.1
 
 # https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION=0.12.26
+ENV TERRAFORM_VERSION=0.12.27
 
-# https://github.com/bats-core/bats-core
+# https://github.com/bats-core/bats-core/releases
 ENV BATS_VERSION=1.2.0
 
 # https://github.com/mikefarah/yq/releases
 ENV YQ_VERSION=3.3.2
 
 # https://github.com/hashicorp/vault/releases
-ENV VAULT_VERSION=1.4.1
+ENV VAULT_VERSION=1.4.2
 
 ENV TERRAFORM_KUBECTL_PROVIDER_VERSION=v1.3.3
 ENV TERRAFORM_MINIO_PROVIDER_VERSION=1.1.0
@@ -36,6 +36,12 @@ ENV TERRAFORM_HARBOR_PROVIDER_VERSION=0.1.1
 ENV SWAGGER_VERSION=v0.23.0
 
 ENV TERRAFORM_DOC_VERSION=v0.9.1
+
+# https://github.com/tektoncd/cli/releases
+ENV TEKTONCD_CLI_VERSION=0.10.0
+
+# https://github.com/kubernetes-sigs/kustomize/releases
+ENV KUSTOMIZE_VERSION=3.6.1
 
 RUN apk add --update-cache \
   ncurses \
@@ -101,13 +107,17 @@ RUN curl -sSL -k https://github.com/koalaman/shellcheck/releases/download/stable
 RUN curl -Lo /usr/local/bin/skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 \
   && chmod +x /usr/local/bin/skaffold
 
-ENV TEKTONCD_CLI_VERSION=0.10.0
-
 # install tekton binary
 RUN curl -LO https://github.com/tektoncd/cli/releases/download/v${TEKTONCD_CLI_VERSION}/tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz \
     && tar xvzf tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz -C /usr/local/bin tkn \
     && rm tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz \
     && chmod +x /usr/local/bin/tkn
+
+RUN curl -LO https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+    && tar xvzf kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz -C /usr/local/bin kustomize \
+    && rm kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+    && chmod +x /usr/local/bin/kustomize
+
 
 USER ${USERNAME}
 
