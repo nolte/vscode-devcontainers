@@ -118,6 +118,8 @@ RUN curl -LO https://github.com/kubernetes-sigs/kustomize/releases/download/kust
     && rm kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
     && chmod +x /usr/local/bin/kustomize
 
+# https://github.com/GoogleContainerTools/container-structure-test
+RUN curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
 
 USER ${USERNAME}
 
