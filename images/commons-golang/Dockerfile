@@ -1,3 +1,6 @@
+ARG FROM_REGISTRY=docker.pkg.github.com/nolte/vscode-devcontainers
+ARG FROM_IMAGE_NAME=commons
+ARG FROM_IMAGE_VERSION=latest
 ARG ALPINE_VERSION=3.11
 ARG GO_VERSION=1.14
 
@@ -14,7 +17,7 @@ WORKDIR /tmp/race/lib/tsan/go
 RUN sed -e 's,-Wno-unknown-warning-option,-Wno-error=deprecated,' -i buildgo.sh
 RUN ./buildgo.sh
 
-FROM docker.pkg.github.com/nolte/vscode-devcontainers/commons:latest
+FROM ${FROM_REGISTRY}/${FROM_IMAGE_NAME}:${FROM_IMAGE_VERSION}
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -34,7 +37,7 @@ LABEL \
   org.opencontainers.image.description="Go development container for Visual Studio Code Remote Containers development"
 USER root
 # TODO use build args
-COPY --from=golang:1.14-alpine3.11 /usr/local/go /usr/local/go
+COPY --from=race /usr/local/go /usr/local/go
 COPY --from=race /tmp/race/lib/tsan/go/race_linux_amd64.syso /usr/local/go/src/runtime/race/race_linux_amd64.syso
 ENV GOPATH=/go
 ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH \
@@ -47,44 +50,16 @@ RUN mkdir -p /var/cache/apk
 # Shell setup
 COPY --chown=${USER_UID}:${USER_GID} files/.zshrc-specific files/.welcome.sh /home/${USERNAME}/
 COPY files/.zshrc-specific files/.welcome.sh /root/
-# Install Go packages
-ARG GOLANGCI_LINT_VERSION=v1.24.0
-RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b /bin -d ${GOLANGCI_LINT_VERSION}
+
+# install common go tool sets
 RUN go get -v \
-  # Base Go tools needed for VS code Go extension
-  golang.org/x/tools/gopls \
-  github.com/ramya-rao-a/go-outline \
-  #golang.org/x/tools/cmd/guru \
-  #golang.org/x/tools/cmd/gorename \
-  # Extra tools integrating with VS code
-  github.com/fatih/gomodifytags \
-  github.com/haya14busa/goplay/cmd/goplay \
-  github.com/cweill/gotests/... \
-  github.com/davidrjenni/reftools/cmd/fillstruct \
-  # Terminal tools
-  github.com/golang/mock/gomock \
-  github.com/golang/mock/mockgen \
-  github.com/vektra/mockery/...  \
-  github.com/go-delve/delve/cmd/dlv \
-  github.com/godoctor/godoctor  \
-  github.com/mdempsky/gocode \
-  github.com/uudashr/gopkgs/v2/cmd/gopkgs \
-  github.com/stamblerre/gocode \
-  github.com/rogpeppe/godef \
-  golang.org/x/tools/cmd/goimports \
-  github.com/ahmetb/gen-crd-api-reference-docs \
-  golang.org/x/tools/cmd/godoc \
-  golang.org/x/lint/golint \
+  github.com/magefile/mage \
+  github.com/evanphx/json-patch/cmd/json-patch \
   2>&1 && \
   rm -rf $GOPATH/pkg/* $GOPATH/src/* /root/.cache/go-build && \
   chown -R ${USER_UID}:${USER_GID} $GOPATH && \
   chmod -R 700 $GOPATH
 
-RUN apk add --update-cache \
-  nodejs nodejs-npm \
-  && rm -rf /var/cache/apk/*
-
-RUN npm install postcss-cli
 
 RUN mkdir -p /go/src && chown -R ${USER_UID}:${USER_GID} /go/src \
   && mkdir -p /go/pkg && chown -R ${USER_UID}:${USER_GID} /go/pkg \

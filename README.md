@@ -8,7 +8,7 @@ For new [Dev Containers](https://code.visualstudio.com/docs/remote/containers) p
 
 ```bash
 # TODO change local path to gh project
-cookiecutter /workspace/cookiecutter-project project_slug="myNextTest" project_type="devops" extra_dockerfile="n"
+cookiecutter /go/src/github.com/nolte/vscode-devcontainers/cookiecutter-project project_slug="myNextTest" project_type="devops" extra_dockerfile="n"
 ```
 
 ```bash

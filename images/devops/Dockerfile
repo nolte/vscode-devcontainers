@@ -1,6 +1,9 @@
+ARG FROM_REGISTRY=docker.pkg.github.com/nolte/vscode-devcontainers
+#ARG FROM_IMAGE_NAME=commons-golang
+ARG FROM_IMAGE_NAME=golang
+ARG FROM_IMAGE_VERSION=latest
+FROM ${FROM_REGISTRY}/${FROM_IMAGE_NAME}:${FROM_IMAGE_VERSION}
 
-FROM docker.pkg.github.com/nolte/vscode-devcontainers/commons:latest
-#
 #ARG USERNAME=vscode
 #ARG USER_UID=1000
 #ARG USER_GID=1000
@@ -35,13 +38,17 @@ ENV TERRAFORM_HARBOR_PROVIDER_VERSION=0.1.1
 
 ENV SWAGGER_VERSION=v0.23.0
 
+# https://github.com/terraform-docs/terraform-docs/releases
 ENV TERRAFORM_DOC_VERSION=v0.9.1
+
+# https://github.com/cli/cli/releases
+ENV GITHUB_CLI_VERSION=0.11.0
 
 # https://github.com/tektoncd/cli/releases
 ENV TEKTONCD_CLI_VERSION=0.10.0
 
 # https://github.com/kubernetes-sigs/kustomize/releases
-ENV KUSTOMIZE_VERSION=3.6.1
+ENV KUSTOMIZE_VERSION=3.8.1
 
 RUN apk add --update-cache \
   ncurses \
@@ -120,6 +127,20 @@ RUN curl -LO https://github.com/kubernetes-sigs/kustomize/releases/download/kust
 
 # https://github.com/GoogleContainerTools/container-structure-test
 RUN curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
+
+
+RUN curl -Lo ./terraform-docs https://github.com/terraform-docs/terraform-docs/releases/download/${TERRAFORM_DOCS_VERSION}/terraform-docs-${TERRAFORM_DOCS_VERSION}-$(uname | tr '[:upper:]' '[:lower:]')-amd64 && \
+  chmod +x ./terraform-docs && \
+  mv ./terraform-docs /usr/local/bin/terraform-docs
+
+RUN mkdir -p /tmp/ghcli \
+    && curl -L https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_arm64.tar.gz -o /tmp/ghcli/gh.tar.gz \
+    && tar xvzf /tmp/ghcli/gh.tar.gz -C /tmp/ghcli \
+    && mv /tmp/ghcli/gh_${GITHUB_CLI_VERSION}_linux_arm64/bin/gh /usr/local/bin/gh \
+    && rm -rf /tmp/ghcli \
+    && chmod +x /usr/local/bin/gh
+
+
 
 USER ${USERNAME}
 
