@@ -9,14 +9,16 @@
     ],
     "shutdownAction": "stopCompose",
     "postCreateCommand": "chmod -R 700 .git",
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/go/src/github.com/nolte/vscode-devcontainers",
     // "overrideCommand": "",
     "extensions": [
         // General backend
         "mohsen1.prettify-json",
         "redhat.vscode-yaml", // Kubernetes and Kedge syntax support
         // Go
-        //"ms-vscode.go",
+        "ms-vscode.go",
+        "hbenl.vscode-test-explorer",
+        "ethan-reesor.vscode-go-test-adapter",
         // Console
         "IBM.output-colorizer",
         // Git
@@ -26,6 +28,8 @@
         "davidanson.vscode-markdownlint",
         "ms-azuretools.vscode-docker",
         // Other helpers
+        "davidanson.vscode-markdownlint",
+        "bierner.github-markdown-preview",
         "shardulm94.trailing-spaces",
         "Gruntfuggly.todo-tree",
         "bierner.emojisense",
@@ -62,7 +66,7 @@
         "python.defaultInterpreterPath": "/home/vscode/.virtualenvs/cookiecutter/bin/python",
         "python.testing.pytestArgs": [
           // https://github.com/microsoft/vscode-python/issues/9553
-          "--rootdir=/workspace/cookiecutter-project"
+          "--rootdir=/go/src/github.com/nolte/vscode-devcontainers/cookiecutter-project"
         ],
         "python.testing.unittestEnabled": false,
         "python.testing.nosetestsEnabled": false,

@@ -1,5 +1,7 @@
-
-FROM docker.pkg.github.com/nolte/vscode-devcontainers/commons:latest
+ARG FROM_REGISTRY=docker.pkg.github.com/nolte/vscode-devcontainers
+ARG FROM_IMAGE_NAME=commons-golang
+ARG FROM_IMAGE_VERSION=latest
+FROM ${FROM_REGISTRY}/${FROM_IMAGE_NAME}:${FROM_IMAGE_VERSION}
 
 RUN mkdir -p ${WORKON_HOME} \
   && virtualenv -p python3 ${WORKON_HOME}/development \

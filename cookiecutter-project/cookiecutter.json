@@ -5,18 +5,22 @@
   "masterdata": {
     "configs": {
       "default": {
-        "image": "nolte/vscode-commons:latest",
+        "image": "docker.pkg.github.com/nolte/vscode-devcontainers/commons-golang:latest",
         "vscode": {
-          "workspace": "/workspace",
+          "workspace": "/go/src/github.com/nolte/{{cookiecutter.project_slug}}",
           "extentions": [
             "alefragnani.Bookmarks",
             "bierner.emojisense",
+            "bierner.github-markdown-preview",
             "christian-kohler.path-intellisense",
+            "cschleiden.vscode-github-actions",
             "davidanson.vscode-markdownlint",
             "docsmsft.docs-article-templates",
             "docsmsft.docs-markdown",
             "eamodio.gitlens",
+            "EditorConfig.EditorConfig",
             "Gruntfuggly.todo-tree",
+            "hbenl.vscode-test-explorer",
             "IBM.output-colorizer",
             "jrebocho.vscode-random",
             "mhutchie.git-graph",
@@ -47,7 +51,8 @@
         "image": "nolte/vscode-dev-golang:latest",
         "vscode": {
           "extentions": [
-            "ms-vscode.go"
+            "ms-vscode.go",
+            "ethan-reesor.vscode-go-test-adapter"
           ]
         }
       },
@@ -55,18 +60,21 @@
         "image": "nolte/vscode-commons:latest",
         "vscode": {
           "extentions": [
+            "LittleFoxTeam.vscode-python-test-adapter",
             "ms-python.python"
           ]
         }
       },
       "devops": {
-        "image": "nolte/vscode-dev-devops:latest",
+        "image": "docker.pkg.github.com/nolte/vscode-devcontainers/devops:latest",
         "vscode": {
           "extentions": [
-            "mauve.terraform",
+            "HashiCorp.terraform",
             "ms-kubernetes-tools.kind-vscode",
             "ms-kubernetes-tools.vscode-kubernetes-tools",
             "owenfarrell.vscode-vault",
+            "samuelcolvin.jinjahtml",
+            "ms-azuretools.vscode-docker",
             "vscoss.vscode-ansible"
           ]
         }

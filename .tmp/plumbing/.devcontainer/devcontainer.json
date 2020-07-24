@@ -1,0 +1,62 @@
+{
+    "name": "plumbing",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "service": "vscode",
+    "runServices": [
+        "vscode"
+    ],
+    "mounts": [
+        "source=plumbing-vol,target=/home/vscode/.vscode-server/extensions,type=volume",
+        // And/or for VS Code Insiders
+        "source=plumbing-vol-insiders,target=/home/vscode/.vscode-server-insiders/extensions,type=volume",
+    ],    
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "chmod -R 700 .git",
+    "workspaceFolder": "/go/src/github.com/nolte/plumbing",
+    "extensions": [
+    "alefragnani.Bookmarks",
+    "bierner.emojisense",
+    "bierner.github-markdown-preview",
+    "christian-kohler.path-intellisense",
+    "cschleiden.vscode-github-actions",
+    "davidanson.vscode-markdownlint",
+    "docsmsft.docs-article-templates",
+    "docsmsft.docs-markdown",
+    "eamodio.gitlens",
+    "EditorConfig.EditorConfig",
+    "Gruntfuggly.todo-tree",
+    "hbenl.vscode-test-explorer",
+    "IBM.output-colorizer",
+    "jrebocho.vscode-random",
+    "mhutchie.git-graph",
+    "mohsen1.prettify-json",
+    "ms-azuretools.vscode-docker",
+    "pascalreitermann93.vscode-yaml-sort",
+    "quicktype.quicktype",
+    "redhat.vscode-yaml",
+    "shardulm94.trailing-spaces",
+    "spikespaz.vscode-smoothtype",
+    "stkb.rewrap",
+    "tyriar.sort-lines",
+    "vscode-ext.sync-rsync",
+    "vscode-icons-team.vscode-icons",
+    "HashiCorp.terraform",
+    "ms-kubernetes-tools.kind-vscode",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "owenfarrell.vscode-vault",
+    "samuelcolvin.jinjahtml",
+    "vscoss.vscode-ansible"
+],
+    "settings": {
+        // General settings
+        "editor.renderWhitespace": "all",
+        // Docker
+        "remote.extensionKind": {
+            "ms-azuretools.vscode-docker": "workspace"
+        },
+        "python.pythonPath": "/home/vscode/.virtualenvs/development/bin/python",
+        "python.terminal.activateEnvInCurrentTerminal": true
+    }
+}

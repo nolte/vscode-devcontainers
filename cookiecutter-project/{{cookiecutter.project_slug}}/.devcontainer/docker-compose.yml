@@ -7,6 +7,10 @@ services:
       - "../:{{ cookiecutter.masterdata.configs[cookiecutter.project_type].vscode.workspace | default(cookiecutter.masterdata.configs['default'].vscode.workspace) }}:cached"
       - ~/.ssh:/home/vscode/.ssh:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      ## reuse volumes for extensions
+      - {{cookiecutter.project_slug}}-vol:/home/vscode/.vscode-server/extensions
+      # And/or for VS Code Insiders
+      - {{cookiecutter.project_slug}}-vol-insiders:/home/vscode/.vscode-server-insiders/extension      
     environment:
       - TZ=Europe/Berlin # $(cat /etc/timezone)
     cap_add:
@@ -15,3 +19,7 @@ services:
       - seccomp:unconfined
     entrypoint: zsh -c "while sleep 1000; do :; done"
     network_mode: "host"
+
+volumes:
+  {{cookiecutter.project_slug}}-vol:
+  {{cookiecutter.project_slug}}-vol-insiders:

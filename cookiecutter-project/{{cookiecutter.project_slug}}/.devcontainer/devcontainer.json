@@ -7,16 +7,17 @@
     "runServices": [
         "vscode"
     ],
+    "mounts": [
+        "source={{cookiecutter.project_slug}}-vol,target=/home/vscode/.vscode-server/extensions,type=volume",
+        // And/or for VS Code Insiders
+        "source={{cookiecutter.project_slug}}-vol-insiders,target=/home/vscode/.vscode-server-insiders/extensions,type=volume",
+    ],    
     "shutdownAction": "stopCompose",
     "postCreateCommand": "chmod -R 700 .git",
     "workspaceFolder": "{{ cookiecutter.masterdata.configs[cookiecutter.project_type].vscode.workspace | default(cookiecutter.masterdata.configs['default'].vscode.workspace) }}",
     "extensions": {{ (cookiecutter.masterdata.configs['default'].vscode.extentions|list + cookiecutter.masterdata.configs[cookiecutter.project_type].vscode.extentions|list)| unique | list | to_nice_json}},
     "settings": {
         // General settings
-        "files.eol": "\n",
-        "files.encoding": "UTF-8",
-        "editor.insertSpaces": true,
-        "editor.tabSize": 4,
         "editor.renderWhitespace": "all",
         // Docker
         "remote.extensionKind": {
