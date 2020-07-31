@@ -50,6 +50,9 @@ ENV TEKTONCD_CLI_VERSION=0.10.0
 # https://github.com/kubernetes-sigs/kustomize/releases
 ENV KUSTOMIZE_VERSION=3.8.1
 
+# https://github.com/hashicorp/packer/releases
+ARG PACKER_VERSION=1.6.0
+
 RUN apk add --update-cache \
   ncurses \
   && rm -rf /var/cache/apk/* 
@@ -140,6 +143,13 @@ RUN mkdir -p /tmp/ghcli \
     && rm -rf /tmp/ghcli \
     && chmod +x /usr/local/bin/gh
 
+
+
+RUN mkdir -p /tmp/packer/ \
+  && curl -Lo /tmp/packer/packer.zip https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip \
+  && unzip "/tmp/packer/packer.zip" -d /usr/local/bin \
+  && rm -rf /tmp/packer \
+  && chmod +x /usr/local/bin/packer
 
 
 USER ${USERNAME}

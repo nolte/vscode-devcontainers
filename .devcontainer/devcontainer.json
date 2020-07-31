@@ -65,14 +65,12 @@
         "python.pythonPath": "/home/vscode/.virtualenvs/cookiecutter/bin/python",
         "python.defaultInterpreterPath": "/home/vscode/.virtualenvs/cookiecutter/bin/python",
         "python.testing.pytestArgs": [
-          // https://github.com/microsoft/vscode-python/issues/9553
-          "--rootdir=/go/src/github.com/nolte/vscode-devcontainers/cookiecutter-project"
+            // https://github.com/microsoft/vscode-python/issues/9553
+            "--rootdir=/go/src/github.com/nolte/vscode-devcontainers/cookiecutter-project"
         ],
         "python.testing.unittestEnabled": false,
         "python.testing.nosetestsEnabled": false,
         "python.testing.pytestEnabled": true,
         "python.terminal.activateEnvInCurrentTerminal": true
-        
-
     }
 }

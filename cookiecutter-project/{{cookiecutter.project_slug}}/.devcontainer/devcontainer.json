@@ -17,6 +17,7 @@
     "workspaceFolder": "{{ cookiecutter.masterdata.configs[cookiecutter.project_type].vscode.workspace | default(cookiecutter.masterdata.configs['default'].vscode.workspace) }}",
     "extensions": {{ (cookiecutter.masterdata.configs['default'].vscode.extentions|list + cookiecutter.masterdata.configs[cookiecutter.project_type].vscode.extentions|list)| unique | list | to_nice_json}},
     "settings": {
+        "editor.formatOnSave": true,
         // General settings
         "editor.renderWhitespace": "all",
         // Docker

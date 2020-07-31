@@ -25,7 +25,7 @@ RUN go get -v \
   github.com/vektra/mockery/...  \
   github.com/go-delve/delve/cmd/dlv \
   github.com/godoctor/godoctor  \
-  github.com/mdempsky/gocode \
+  github.com/stamblerre/gocode \
   github.com/uudashr/gopkgs/v2/cmd/gopkgs \
   github.com/stamblerre/gocode \
   github.com/rogpeppe/godef \
