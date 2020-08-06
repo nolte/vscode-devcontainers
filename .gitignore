@@ -6,3 +6,4 @@ images/devops/providers
 __pycache__
 *.retry
 .vscode
+.tmp

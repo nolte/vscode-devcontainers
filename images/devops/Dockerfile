@@ -20,41 +20,54 @@ ENV KIND_VERSION=v0.8.1
 ENV DOCKERX_VERSION=v0.4.1
 
 # https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION=0.12.27
+ENV TERRAFORM_VERSION=0.12.29
 
 # https://github.com/bats-core/bats-core/releases
-ENV BATS_VERSION=1.2.0
+ENV BATS_VERSION=1.2.1
 
 # https://github.com/mikefarah/yq/releases
 ENV YQ_VERSION=3.3.2
 
 # https://github.com/hashicorp/vault/releases
-ENV VAULT_VERSION=1.4.2
+ENV VAULT_VERSION=1.5.0
 
-ENV TERRAFORM_KUBECTL_PROVIDER_VERSION=v1.3.3
+# https://github.com/gavinbunney/terraform-provider-kubectl/releases
+ENV TERRAFORM_KUBECTL_PROVIDER_VERSION=v1.5.1
+
+# https://github.com/aminueza/terraform-provider-minio/releases
 ENV TERRAFORM_MINIO_PROVIDER_VERSION=1.1.0
-ENV TERRAFORM_KEYCLOAK_PROVIDER_VERSION=1.18.0
-ENV TERRAFORM_HARBOR_PROVIDER_VERSION=0.1.1
 
-ENV SWAGGER_VERSION=v0.23.0
+# https://github.com/mrparkers/terraform-provider-keycloak/releases
+ENV TERRAFORM_KEYCLOAK_PROVIDER_VERSION=1.20.0
+
+# https://github.com/nolte/terraform-provider-harbor/releases
+ENV TERRAFORM_HARBOR_PROVIDER_VERSION=0.1.5
+
+# https://github.com/camptocamp/terraform-provider-pass/releases
+ENV TERRAFORM_PASS_PROVIDER_VERSION=v1.3.0
+
+# https://github.com/go-swagger/go-swagger/releases/download
+ENV SWAGGER_VERSION=v0.25.0
 
 # https://github.com/terraform-docs/terraform-docs/releases
 ENV TERRAFORM_DOC_VERSION=v0.9.1
 
 # https://github.com/cli/cli/releases
-ENV GITHUB_CLI_VERSION=0.11.0
+ENV GITHUB_CLI_VERSION=0.11.1
 
 # https://github.com/tektoncd/cli/releases
-ENV TEKTONCD_CLI_VERSION=0.10.0
+ENV TEKTONCD_CLI_VERSION=0.11.0
 
 # https://github.com/kubernetes-sigs/kustomize/releases
 ENV KUSTOMIZE_VERSION=3.8.1
 
 # https://github.com/hashicorp/packer/releases
-ARG PACKER_VERSION=1.6.0
+ARG PACKER_VERSION=1.6.1
+
 
 RUN apk add --update-cache \
   ncurses \
+  nodejs npm \
   && rm -rf /var/cache/apk/* 
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl \
@@ -67,8 +80,6 @@ RUN curl -Lo ./helm.tar.gz https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.
   && chmod +x /usr/local/bin/helm \
   && rm ./helm.tar.gz \
   && rm -rf ./linux-amd64
-
-
 
 RUN curl -Lo ./terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
   && unzip ./terraform.zip \
@@ -119,14 +130,14 @@ RUN curl -Lo /usr/local/bin/skaffold https://storage.googleapis.com/skaffold/rel
 
 # install tekton binary
 RUN curl -LO https://github.com/tektoncd/cli/releases/download/v${TEKTONCD_CLI_VERSION}/tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz \
-    && tar xvzf tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz -C /usr/local/bin tkn \
-    && rm tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz \
-    && chmod +x /usr/local/bin/tkn
+  && tar xvzf tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz -C /usr/local/bin tkn \
+  && rm tkn_${TEKTONCD_CLI_VERSION}_Linux_x86_64.tar.gz \
+  && chmod +x /usr/local/bin/tkn
 
 RUN curl -LO https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
-    && tar xvzf kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz -C /usr/local/bin kustomize \
-    && rm kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
-    && chmod +x /usr/local/bin/kustomize
+  && tar xvzf kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz -C /usr/local/bin kustomize \
+  && rm kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+  && chmod +x /usr/local/bin/kustomize
 
 # https://github.com/GoogleContainerTools/container-structure-test
 RUN curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
@@ -137,11 +148,11 @@ RUN curl -Lo ./terraform-docs https://github.com/terraform-docs/terraform-docs/r
   mv ./terraform-docs /usr/local/bin/terraform-docs
 
 RUN mkdir -p /tmp/ghcli \
-    && curl -L https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_arm64.tar.gz -o /tmp/ghcli/gh.tar.gz \
-    && tar xvzf /tmp/ghcli/gh.tar.gz -C /tmp/ghcli \
-    && mv /tmp/ghcli/gh_${GITHUB_CLI_VERSION}_linux_arm64/bin/gh /usr/local/bin/gh \
-    && rm -rf /tmp/ghcli \
-    && chmod +x /usr/local/bin/gh
+  && curl -L https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_arm64.tar.gz -o /tmp/ghcli/gh.tar.gz \
+  && tar xvzf /tmp/ghcli/gh.tar.gz -C /tmp/ghcli \
+  && mv /tmp/ghcli/gh_${GITHUB_CLI_VERSION}_linux_arm64/bin/gh /usr/local/bin/gh \
+  && rm -rf /tmp/ghcli \
+  && chmod +x /usr/local/bin/gh
 
 
 
@@ -196,8 +207,6 @@ RUN mkdir -p /home/${USERNAME}/.terraform.d/plugins/linux_amd64 \
   && wget -qO- https://github.com/nolte/terraform-provider-harbor/releases/download/release/v${TERRAFORM_HARBOR_PROVIDER_VERSION}/terraform-provider-harbor_v${TERRAFORM_HARBOR_PROVIDER_VERSION}_linux_amd64.tar.gz | tar -xvz -C ~/.terraform.d/plugins/linux_amd64/ \
   && chmod +x /home/${USERNAME}/.terraform.d/plugins/linux_amd64/terraform-provider-harbor 
 
-ENV TERRAFORM_PASS_PROVIDER_VERSION=1.2.1
-
 RUN mkdir -p /tmp/terraform-provider-pass/ \
   && curl -Lo /tmp/terraform-provider-pass/terraform-provider-pass.zip https://github.com/camptocamp/terraform-provider-pass/releases/download/${TERRAFORM_PASS_PROVIDER_VERSION}/terraform-provider-pass_${TERRAFORM_PASS_PROVIDER_VERSION}_linux_amd64.zip \
   && unzip -j "/tmp/terraform-provider-pass/terraform-provider-pass.zip" "bin/terraform-provider-pass_${TERRAFORM_PASS_PROVIDER_VERSION}_linux_amd64" -d /home/${USERNAME}/.terraform.d/plugins/linux_amd64 \
@@ -214,3 +223,14 @@ RUN mkdir -p /home/${USERNAME}/.oh-my-zsh/custom/plugins/ \
 RUN mkdir -p /home/${USERNAME}/.docker/cli-plugins/ \
   && curl -Lo /home/${USERNAME}/.docker/cli-plugins/docker-buildx https://github.com/docker/buildx/releases/download/${DOCKERX_VERSION}/buildx-${DOCKERX_VERSION}.linux-amd64 \
   && chmod +x /home/${USERNAME}/.docker/cli-plugins/docker-buildx
+
+
+RUN mkdir "/home/${USERNAME}/.npm-packages"
+RUN npm config set prefix "/home/${USERNAME}/.npm-packages"
+
+RUN curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+
+RUN npm i madr adr-log -g
+
+RUN helm plugin install https://github.com/databus23/helm-diff \
+  && helm plugin install https://github.com/fabmation-gmbh/helm-whatup

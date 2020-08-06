@@ -6,7 +6,7 @@ FROM ${FROM_REGISTRY}/${FROM_IMAGE_NAME}:${FROM_IMAGE_VERSION}
 USER root
 
 # Install Go packages
-ARG GOLANGCI_LINT_VERSION=v1.24.0
+ARG GOLANGCI_LINT_VERSION=v1.29.0
 RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b /bin -d ${GOLANGCI_LINT_VERSION}
 RUN go get -v \
   # Base Go tools needed for VS code Go extension
@@ -27,7 +27,6 @@ RUN go get -v \
   github.com/godoctor/godoctor  \
   github.com/stamblerre/gocode \
   github.com/uudashr/gopkgs/v2/cmd/gopkgs \
-  github.com/stamblerre/gocode \
   github.com/rogpeppe/godef \
   golang.org/x/tools/cmd/goimports \
   github.com/ahmetb/gen-crd-api-reference-docs \
