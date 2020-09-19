@@ -7,8 +7,12 @@ The Containers are tested with Docker ``19.03.8`` and based on [qdm12/basedevcon
 For new [Dev Containers](https://code.visualstudio.com/docs/remote/containers) projects you can use the Python [cookiecutter/cookiecutter](https://github.com/cookiecutter/cookiecutter) Templates.
 
 ```bash
+pip install jinja2-ansible-filters
+
 # TODO change local path to gh project
 cookiecutter /go/src/github.com/nolte/vscode-devcontainers/cookiecutter-project project_slug="myNextTest" project_type="devops" extra_dockerfile="n"
+
+cookiecutter gh:nolte/vscode-devcontainers --directory="cookiecutter-project" project_slug="helm-gitea" project_type="devops" extra_dockerfile="n"
 ```
 
 ```bash

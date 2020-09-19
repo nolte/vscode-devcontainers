@@ -1,3 +1,7 @@
 pre-commit
 python-gilt
 mkdocs
+yamllint
+yamale
+cookiecutter 
+jinja2-ansible-filters

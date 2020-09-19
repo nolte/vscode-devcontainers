@@ -65,7 +65,7 @@ ENV GITHUB_CLI_VERSION=1.0.0
 ENV TEKTONCD_CLI_VERSION=0.12.1
 
 # https://github.com/kubernetes-sigs/kustomize/releases
-ENV KUSTOMIZE_VERSION=3.8.8
+ENV KUSTOMIZE_VERSION=3.8.3
 
 # https://github.com/hashicorp/packer/releases
 ARG PACKER_VERSION=1.6.2
