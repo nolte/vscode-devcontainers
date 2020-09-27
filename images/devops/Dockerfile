@@ -1,6 +1,6 @@
 ARG FROM_REGISTRY=docker.pkg.github.com/nolte/vscode-devcontainers
-#ARG FROM_IMAGE_NAME=commons-golang
-ARG FROM_IMAGE_NAME=golang
+ARG FROM_IMAGE_NAME=commons-golang
+#ARG FROM_IMAGE_NAME=golang
 ARG FROM_IMAGE_VERSION=latest
 FROM ${FROM_REGISTRY}/${FROM_IMAGE_NAME}:${FROM_IMAGE_VERSION}
 
@@ -11,13 +11,13 @@ FROM ${FROM_REGISTRY}/${FROM_IMAGE_NAME}:${FROM_IMAGE_VERSION}
 USER root
 
 # https://github.com/helm/helm/releases
-ENV HELM_VERSION=v3.3.3
+ENV HELM_VERSION=v3.3.4
 
 # https://github.com/kubernetes-sigs/kind/releases
 ENV KIND_VERSION=v0.9.0
 
 # https://github.com/helm/chart-testing/releases
-ENV HELM_CHART_TESTING_VERSION=3.0.0
+ENV HELM_CHART_TESTING_VERSION=3.1.1
 
 # https://github.com/helm/chart-releaser
 ENV HELM_CHART_RELEASER_VERSION=1.0.0
@@ -35,7 +35,7 @@ ENV BATS_VERSION=1.2.1
 ENV YQ_VERSION=3.4.0
 
 # https://github.com/hashicorp/vault/releases
-ENV VAULT_VERSION=1.5.3
+ENV VAULT_VERSION=1.5.4
 
 ## https://github.com/gavinbunney/terraform-provider-kubectl/releases
 #ENV TERRAFORM_KUBECTL_PROVIDER_VERSION=v1.5.1
@@ -56,7 +56,7 @@ ENV VAULT_VERSION=1.5.3
 ENV SWAGGER_VERSION=v0.25.0
 
 # https://github.com/terraform-docs/terraform-docs/releases
-ENV TERRAFORM_DOC_VERSION=v0.9.1
+ENV TERRAFORM_DOC_VERSION=v0.10.0
 
 # https://github.com/cli/cli/releases
 ENV GITHUB_CLI_VERSION=1.0.0
@@ -65,10 +65,10 @@ ENV GITHUB_CLI_VERSION=1.0.0
 ENV TEKTONCD_CLI_VERSION=0.12.1
 
 # https://github.com/kubernetes-sigs/kustomize/releases
-ENV KUSTOMIZE_VERSION=3.8.3
+ENV KUSTOMIZE_VERSION=3.8.4
 
 # https://github.com/hashicorp/packer/releases
-ARG PACKER_VERSION=1.6.2
+ARG PACKER_VERSION=1.6.3
 
 
 RUN apk add --update-cache \
