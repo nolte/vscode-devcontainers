@@ -260,3 +260,9 @@ RUN npm i madr adr-log -g
 
 RUN helm plugin install https://github.com/databus23/helm-diff \
   && helm plugin install https://github.com/fabmation-gmbh/helm-whatup
+
+RUN curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip && rm tflint.zip && sudo mv tflint /usr/local/bin 
+
+RUN git config --global init.templateDir /home/${USERNAME}/.git-template \
+  && source ~/.virtualenvs/development/bin/activate \
+  && pre-commit init-templatedir -t pre-commit /home/${USERNAME}/.git-template
