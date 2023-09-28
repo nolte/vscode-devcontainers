@@ -20,10 +20,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: nolte/vscode-devcontainers/commons
-          dockerfile: ./images/commons/Dockerfile
-          path: ./images/commons/.
-          tag_with_ref: false
-          add_git_labels: true
+          # file: ./images/commons/Dockerfile
+          context: ./images/commons/.
+          #tag_with_ref: false
+          #add_git_labels: true
           tags: latest
     # outputs:
     #   digest: ${{ steps.build.outputs.digest }}
