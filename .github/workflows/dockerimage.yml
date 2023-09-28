@@ -71,88 +71,29 @@ jobs:
         with:
           context: ./images/commons-golang/.
           tags: docker.pkg.github.com/nolte/vscode-devcontainers/commons-golang
-  # devgolang:
-  #   runs-on: ubuntu-latest
-  #   needs: commonsgolang
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Push to GitHub Packages
-  #       uses: docker/build-push-action@v5.0.0
-  #       with:
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-  #         registry: docker.pkg.github.com
-  #         repository: nolte/vscode-devcontainers/golang
-  #         dockerfile: ./images/dev-golang/Dockerfile
-  #         path: ./images/dev-golang/.
-  #         tag_with_ref: false
-  #         add_git_labels: true
-  #         tags: latest
-  # devops:
-  #   runs-on: ubuntu-latest
-  #   needs: devgolang
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Push to GitHub Packages
-  #       uses: docker/build-push-action@v5.0.0
-  #       with:
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-  #         registry: docker.pkg.github.com
-  #         repository: nolte/vscode-devcontainers/devops
-  #         dockerfile: ./images/devops/Dockerfile
-  #         path: ./images/devops/.
-  #         tag_with_ref: false
-  #         add_git_labels: true
-  #         tags: latest
-  # npm:
-  #   runs-on: ubuntu-latest
-  #   needs: devgolang
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Push to GitHub Packages
-  #       uses: docker/build-push-action@v5.0.0
-  #       with:
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-  #         registry: docker.pkg.github.com
-  #         repository: nolte/vscode-devcontainers/npm
-  #         dockerfile: ./images/npm/Dockerfile
-  #         path: ./images/npm/.
-  #         tag_with_ref: false
-  #         add_git_labels: true
-  #         tags: latest
-  # python:
-  #   runs-on: ubuntu-latest
-  #   needs: devgolang
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Push to GitHub Packages
-  #       uses: docker/build-push-action@v5.0.0
-  #       with:
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-  #         registry: docker.pkg.github.com
-  #         repository: nolte/vscode-devcontainers/python
-  #         dockerfile: ./images/python/Dockerfile
-  #         path: ./images/python/.
-  #         tag_with_ref: false
-  #         add_git_labels: true
-  #         tags: latest
-  # k8soperator:
-  #   runs-on: ubuntu-latest
-  #   needs: [devgolang, devops]
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Push to GitHub Packages
-  #       uses: docker/build-push-action@v5.0.0
-  #       with:
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-  #         registry: docker.pkg.github.com
-  #         repository: nolte/vscode-devcontainers/k8s-operator
-  #         dockerfile: ./images/k8sOperator/Dockerfile
-  #         path: ./images/k8sOperator/.
-  #         tag_with_ref: false
-  #         add_git_labels: true
-  #         tags: latest
+          outputs: type=docker,dest=/tmp/commons-golang.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: commons-golang
+          path: /tmp/commons-golang.tar
+
+  python:
+    runs-on: ubuntu-latest
+    needs: commonsgolang
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: commons-golang
+          path: /tmp
+      - name: Load image
+        run: |
+          docker load --input /tmp/commons-golang.tar
+
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v5.0.0
+        with:
+          context: ./images/python/.
+          tags: docker.pkg.github.com/nolte/vscode-devcontainers/python
