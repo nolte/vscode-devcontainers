@@ -1,5 +1,5 @@
 .PHONY: build
-REGISTRY=docker.pkg.github.com/nolte/vscode-devcontainers
+REGISTRY=ghcr.io/nolte/vscode-devcontainers
 
 default: build
 

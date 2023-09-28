@@ -21,7 +21,7 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/commons/.
-          tags: docker.pkg.github.com/nolte/vscode-devcontainers/commons
+          tags: ghcr.io/nolte/vscode-devcontainers/commons
           outputs: type=docker,dest=/tmp/commons.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -38,6 +38,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Download artifact
@@ -53,7 +60,7 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/devops/.
-          tags: docker.pkg.github.com/nolte/vscode-devcontainers/devops
+          tags: ghcr.io/nolte/vscode-devcontainers/devops
 
   commonsgolang:
     runs-on: ubuntu-latest
@@ -76,7 +83,7 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/commons-golang/.
-          tags: docker.pkg.github.com/nolte/vscode-devcontainers/commons-golang
+          tags: ghcr.io/nolte/vscode-devcontainers/commons-golang
           outputs: type=docker,dest=/tmp/commons-golang.tar
 
       - name: Upload artifact
@@ -106,4 +113,4 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/python/.
-          tags: docker.pkg.github.com/nolte/vscode-devcontainers/python
+          tags: ghcr.io/nolte/vscode-devcontainers/python

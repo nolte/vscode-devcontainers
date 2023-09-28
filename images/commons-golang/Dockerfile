@@ -1,4 +1,4 @@
-ARG FROM_REGISTRY=docker.pkg.github.com/nolte/vscode-devcontainers
+ARG FROM_REGISTRY=ghcr.io/nolte/vscode-devcontainers
 ARG FROM_IMAGE_NAME=commons
 ARG FROM_IMAGE_VERSION=latest
 ARG ALPINE_VERSION=3.18
