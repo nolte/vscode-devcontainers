@@ -28,7 +28,7 @@ jobs:
           context: ./images/commons/.
           #tag_with_ref: false
           #add_git_labels: true
-          tags: latest
+          tags: docker.pkg.github.com/nolte/vscode-devcontainers/commons
           outputs: type=docker,dest=/tmp/commons.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -64,7 +64,7 @@ jobs:
           context: ./images/commons-golang/.
           #tag_with_ref: false
           #add_git_labels: true
-          tags: latest
+          tags: docker.pkg.github.com/nolte/vscode-devcontainers/commons-golang
           #build-args: FROM_IMAGE_VERSION=@${{needs.commons.outputs.digest}}
   # devgolang:
   #   runs-on: ubuntu-latest
