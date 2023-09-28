@@ -29,12 +29,12 @@ jobs:
           #tag_with_ref: false
           #add_git_labels: true
           tags: latest
-          outputs: type=docker,dest=/tmp/myimage.tar
+          outputs: type=docker,dest=/tmp/commons.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: myimage
-          path: /tmp/myimage.tar
+          name: commons
+          path: /tmp/commons.tar
 
     outputs:
       digest: ${{ steps.build.outputs.digest }}
@@ -47,11 +47,12 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: myimage
+          name: commons
           path: /tmp
       - name: Load image
         run: |
-          docker load --input /tmp/myimage.tar      
+          docker load --input /tmp/commons.tar
+          docker image ls -a  
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v5.0.0
         with:

@@ -1,6 +1,6 @@
 ARG FROM_REGISTRY=docker.pkg.github.com/nolte/vscode-devcontainers
 ARG FROM_IMAGE_NAME=commons
-ARG FROM_IMAGE_VERSION=:latest
+ARG FROM_IMAGE_VERSION=latest
 ARG ALPINE_VERSION=3.18
 ARG GO_VERSION=1.21
 
@@ -17,7 +17,7 @@ FROM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS race
 #RUN sed -e 's,-Wno-unknown-warning-option,-Wno-error=deprecated,' -i buildgo.sh
 #RUN ./buildgo.sh
 
-FROM ${FROM_REGISTRY}/${FROM_IMAGE_NAME}${FROM_IMAGE_VERSION}
+FROM ${FROM_REGISTRY}/${FROM_IMAGE_NAME}:${FROM_IMAGE_VERSION}
 
 ARG BUILD_DATE
 ARG VCS_REF
