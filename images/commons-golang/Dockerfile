@@ -1,8 +1,8 @@
 ARG FROM_REGISTRY=docker.pkg.github.com/nolte/vscode-devcontainers
 ARG FROM_IMAGE_NAME=commons
 ARG FROM_IMAGE_VERSION=latest
-ARG ALPINE_VERSION=3.17
-ARG GO_VERSION=1.20
+ARG ALPINE_VERSION=3.18
+ARG GO_VERSION=1.21
 
 # See https://github.com/golang/go/issues/14481
 FROM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS race
