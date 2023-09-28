@@ -31,20 +31,22 @@ ENV PYTHONUNBUFFERED=1
 
 RUN echo "**** install Python ****" && \
   apk add --update-cache \
-  curl wget \
-  zlib-dev \
-  boost-regex \
-  sed \
-  jq tar rsync unzip tree vim \
   bash \
-  zip \
+  boost-regex \
+  bzip2-dev \
+  curl wget \
+  jq tar rsync unzip tree vim \
+  libbz2 \
+  ncurses-dev \
+  readline-dev \
+  sed \
+  sqlite \
+  sqlite-dev \
   tar \
   xz \
   xz-dev \
-  sqlite \
-  sqlite-dev \
-  ncurses-dev \
-  readline-dev \
+  zip \
+  zlib-dev \
   libc6-compat python3 build-base python3-dev libffi libffi-dev openssl-dev \
   linux-headers gnupg openssl gcc build-base libc-dev musl-dev ca-certificates \
   && rm -rf /var/cache/apk/* && \
