@@ -1,6 +1,8 @@
 # Visual Studo Code DevContainers
 
-The Containers are tested with Docker ``19.03.8`` and based on [qdm12/basedevcontainer](https://github.com/qdm12/basedevcontainer).
+A standardised development environment is necessary for working on a wide range of projects, even after a certain period of time has elapsed.
+
+So we create a set of pre configured [Dev Containers](https://code.visualstudio.com/docs/remote/containers) based on [qdm12/basedevcontainer](https://github.com/qdm12/basedevcontainer).
 
 ## Usage
 
