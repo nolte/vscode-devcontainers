@@ -15,10 +15,7 @@ jobs:
     steps:
       - id: env-setup
         run: |
-          {
-            "image_tag=latest"
-            "push=false"
-          } >> $GITHUB_OUTPUT
+          echo "image_tag=latest" >> $GITHUB_OUTPUT
     outputs:
       image_tag: ${{ steps.env-setup.outputs.image_tag }}
 
