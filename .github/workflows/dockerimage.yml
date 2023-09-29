@@ -10,8 +10,21 @@ env:
   IMAGE_TAG: latest
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - id: env-setup
+        run: |
+          {
+            "image_tag=latest"
+            "push=false"
+          } >> $GITHUB_OUTPUT
+    outputs:
+      image_tag: ${{ steps.env-setup.outputs.image_tag }}
+
   commons:
     runs-on: ubuntu-latest
+    needs: prepare
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/commons/.
-          tags: ghcr.io/nolte/vscode-devcontainers/commons:${{ env.IMAGE_TAG }}
+          tags: ghcr.io/nolte/vscode-devcontainers/commons:${{ needs.prepare.outputs.image_tag }}
           outputs: type=docker,dest=/tmp/commons.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -32,8 +45,7 @@ jobs:
           name: commons
           path: /tmp/commons.tar
 
-    outputs:
-      digest: ${{ steps.build.outputs.digest }}
+
 
   devops:
     runs-on: ubuntu-latest
@@ -63,8 +75,8 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/devops/.
-          tags: ghcr.io/nolte/vscode-devcontainers/devops:${{ env.IMAGE_TAG }}
-          build-args: FROM_IMAGE_VERSION=${{ env.IMAGE_TAG }}
+          tags: ghcr.io/nolte/vscode-devcontainers/devops:${{ needs.prepare.outputs.image_tag }}
+          build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
 
   commonsgolang:
     runs-on: ubuntu-latest
@@ -87,9 +99,9 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/commons-golang/.
-          tags: ghcr.io/nolte/vscode-devcontainers/commons-golang:${{ env.IMAGE_TAG }}
+          tags: ghcr.io/nolte/vscode-devcontainers/commons-golang:${{ needs.prepare.outputs.image_tag }}
           outputs: type=docker,dest=/tmp/commons-golang.tar
-          build-args: FROM_IMAGE_VERSION=${{ env.IMAGE_TAG }}
+          build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -118,5 +130,5 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/python/.
-          tags: ghcr.io/nolte/vscode-devcontainers/python:${{ env.IMAGE_TAG }}
-          build-args: FROM_IMAGE_VERSION=${{ env.IMAGE_TAG }}
+          tags: ghcr.io/nolte/vscode-devcontainers/python:${{ needs.prepare.outputs.image_tag }}
+          build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
