@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/commons/.
-          tags: ghcr.io/nolte/vscode-devcontainers/commons:$IMAGE_TAG
+          tags: ghcr.io/nolte/vscode-devcontainers/commons:${{ env.IMAGE_TAG }}
           outputs: type=docker,dest=/tmp/commons.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -63,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/devops/.
-          tags: ghcr.io/nolte/vscode-devcontainers/devops:$IMAGE_TAG
+          tags: ghcr.io/nolte/vscode-devcontainers/devops:${{ env.IMAGE_TAG }}
           build-args: FROM_IMAGE_VERSION=$IMAGE_TAG
 
   commonsgolang:
@@ -87,7 +87,7 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/commons-golang/.
-          tags: ghcr.io/nolte/vscode-devcontainers/commons-golang:$IMAGE_TAG
+          tags: ghcr.io/nolte/vscode-devcontainers/commons-golang:${{ env.IMAGE_TAG }}
           outputs: type=docker,dest=/tmp/commons-golang.tar
           build-args: FROM_IMAGE_VERSION=$IMAGE_TAG
 
@@ -118,5 +118,5 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./images/python/.
-          tags: ghcr.io/nolte/vscode-devcontainers/python:$IMAGE_TAG
+          tags: ghcr.io/nolte/vscode-devcontainers/python:${{ env.IMAGE_TAG }}
           build-args: FROM_IMAGE_VERSION=$IMAGE_TAG
