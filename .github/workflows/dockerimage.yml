@@ -15,7 +15,10 @@ jobs:
     steps:
       - id: env-setup
         run: |
-          echo "image_tag=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+          export image_tag=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          export image_tag=$(echo $image_tag | tr / -)
+           
+          echo "image_tag=$image_tag" >> $GITHUB_OUTPUT
     outputs:
       image_tag: ${{ steps.env-setup.outputs.image_tag }}
 
