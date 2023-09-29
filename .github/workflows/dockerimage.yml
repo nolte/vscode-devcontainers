@@ -64,6 +64,7 @@ jobs:
         with:
           context: ./images/devops/.
           tags: ghcr.io/nolte/vscode-devcontainers/devops:$IMAGE_TAG
+          build-args: FROM_IMAGE_VERSION=$IMAGE_TAG
 
   commonsgolang:
     runs-on: ubuntu-latest
@@ -88,6 +89,7 @@ jobs:
           context: ./images/commons-golang/.
           tags: ghcr.io/nolte/vscode-devcontainers/commons-golang:$IMAGE_TAG
           outputs: type=docker,dest=/tmp/commons-golang.tar
+          build-args: FROM_IMAGE_VERSION=$IMAGE_TAG
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -117,3 +119,4 @@ jobs:
         with:
           context: ./images/python/.
           tags: ghcr.io/nolte/vscode-devcontainers/python:$IMAGE_TAG
+          build-args: FROM_IMAGE_VERSION=$IMAGE_TAG
