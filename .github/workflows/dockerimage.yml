@@ -71,6 +71,10 @@ jobs:
           echo ${{ needs.prepare.outputs.image_tag }}
           echo "---"
           docker load --input /tmp/commons.tar
+          echo "---"
+          docker image ls -a
+          echo "---"
+          
 
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v5.0.0
