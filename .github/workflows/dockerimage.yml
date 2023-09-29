@@ -6,8 +6,6 @@ on:
   pull_request:
     branches: [master]
 
-env:
-  IMAGE_TAG: latest
 
 jobs:
   prepare:
@@ -69,6 +67,9 @@ jobs:
           path: /tmp
       - name: Load image
         run: |
+          echo "Tag"
+          echo ${{ needs.prepare.outputs.image_tag }}
+          echo "---"
           docker load --input /tmp/commons.tar
 
       - name: Push to GitHub Packages
