@@ -15,7 +15,7 @@ jobs:
     steps:
       - id: env-setup
         run: |
-          echo "image_tag=latest" >> $GITHUB_OUTPUT
+          echo "image_tag=${{ github.GITHUB_REF_NAME }}" >> $GITHUB_OUTPUT
     outputs:
       image_tag: ${{ steps.env-setup.outputs.image_tag }}
 
