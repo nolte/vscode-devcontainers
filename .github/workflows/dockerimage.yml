@@ -81,7 +81,7 @@ jobs:
         with:
           context: ./images/devops/.
           tags: ghcr.io/nolte/vscode-devcontainers/devops:${{ needs.prepare.outputs.image_tag }}
-          build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
+          build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}u
 
   commonsgolang:
     runs-on: ubuntu-latest
