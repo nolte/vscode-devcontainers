@@ -43,7 +43,7 @@ jobs:
           context: ./images/commons/.
           tags: ghcr.io/nolte/vscode-devcontainers/commons:${{ needs.prepare.outputs.image_tag }}
           outputs: type=docker,dest=/tmp/commons.tar
-          load: true
+
           
           push: true
       - name: Upload artifact
@@ -90,7 +90,7 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v5.0.0
         with:
-          load: true
+
           context: ./images/devops/.
           tags: ghcr.io/nolte/vscode-devcontainers/devops:${{ needs.prepare.outputs.image_tag }}
           build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
@@ -126,7 +126,7 @@ jobs:
           tags: ghcr.io/nolte/vscode-devcontainers/commons-golang:${{ needs.prepare.outputs.image_tag }}
           outputs: type=docker,dest=/tmp/commons-golang.tar
           build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
-          load: true
+
           
           push: true
       - name: Upload artifact
@@ -164,6 +164,6 @@ jobs:
           context: ./images/python/.
           tags: ghcr.io/nolte/vscode-devcontainers/python:${{ needs.prepare.outputs.image_tag }}
           build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
-          load: true
+
           
           push: true          
