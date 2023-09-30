@@ -28,8 +28,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3   
-        with:
-          driver: docker           
+           
       #- name: Build the Docker image
       #  run: docker build -f ./images/commons/Dockerfile -t vscode-commons:$(date +%s) ./images/commons/.
       - id: build
@@ -41,6 +40,8 @@ jobs:
           outputs: type=docker,dest=/tmp/commons.tar
           load: true
           pull: false
+          platforms:
+            - linux/amd64
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -64,8 +65,7 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        with:
-          driver: docker
+
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
@@ -91,6 +91,8 @@ jobs:
           tags: ghcr.io/nolte/vscode-devcontainers/devops:${{ needs.prepare.outputs.image_tag }}
           build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
           pull: false
+          platforms:
+            - linux/amd64          
   commonsgolang:
     runs-on: ubuntu-latest
     needs: [commons,prepare]
@@ -99,8 +101,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        with:
-          driver: docker        
+        
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
@@ -119,7 +120,8 @@ jobs:
           build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
           load: true
           pull: false
-
+          platforms:
+            - linux/amd64
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -134,8 +136,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        with:
-          driver: docker        
+        
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
@@ -153,3 +154,5 @@ jobs:
           build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
           load: true
           pull: false
+          platforms:
+            - linux/amd64          
