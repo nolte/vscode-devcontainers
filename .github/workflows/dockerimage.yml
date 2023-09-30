@@ -37,6 +37,8 @@ jobs:
           context: ./images/commons/.
           tags: ghcr.io/nolte/vscode-devcontainers/commons:${{ needs.prepare.outputs.image_tag }}
           outputs: type=docker,dest=/tmp/commons.tar
+          load: true
+          pull: false
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -83,7 +85,7 @@ jobs:
           context: ./images/devops/.
           tags: ghcr.io/nolte/vscode-devcontainers/devops:${{ needs.prepare.outputs.image_tag }}
           build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
-
+          pull: false
   commonsgolang:
     runs-on: ubuntu-latest
     needs: [commons,prepare]
@@ -109,7 +111,7 @@ jobs:
           outputs: type=docker,dest=/tmp/commons-golang.tar
           build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
           load: true
-
+          pull: false
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -141,3 +143,4 @@ jobs:
           tags: ghcr.io/nolte/vscode-devcontainers/python:${{ needs.prepare.outputs.image_tag }}
           build-args: FROM_IMAGE_VERSION=${{ needs.prepare.outputs.image_tag }}
           load: true
+          pull: false
