@@ -75,16 +75,16 @@ jobs:
       #   with:
       #     name: commons
       #     path: /tmp
-      - name: Load image
-        run: |
-          # docker buildx use default
-          echo "Tag"
-          echo ${{ needs.prepare.outputs.image_tag }}
-          echo "---"
-          docker load --input /tmp/commons.tar
-          echo "---"
-          docker image ls -a
-          echo "---"
+      # - name: Load image
+      #   run: |
+      #     # docker buildx use default
+      #     echo "Tag"
+      #     echo ${{ needs.prepare.outputs.image_tag }}
+      #     echo "---"
+      #     docker load --input /tmp/commons.tar
+      #     echo "---"
+      #     docker image ls -a
+      #     echo "---"
           
 
       - name: Push to GitHub Packages
