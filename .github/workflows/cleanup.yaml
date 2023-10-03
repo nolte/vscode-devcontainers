@@ -20,11 +20,12 @@ jobs:
            
           echo "image_tag=$image_tag" >> $GITHUB_OUTPUT
       - name: Delete image
-        uses: bots-house/ghcr-delete-image-action@v1.1.0
+        uses: lazyfrosch/ghcr-delete-image-action@main
         with:
           # NOTE: at now only orgs is supported
           owner: ${{ github.actor }}
           name: vscode-devcontainers/commons
+          is_user: true
           # NOTE: using Personal Access Token
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.env-setup.outputs.image_tag }}
