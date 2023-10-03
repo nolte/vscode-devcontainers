@@ -24,7 +24,7 @@ jobs:
         with:
           # NOTE: at now only orgs is supported
           owner: ${{ github.actor }}
-          name: commons
+          name: vscode-devcontainers/commons
           # NOTE: using Personal Access Token
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.env-setup.outputs.image_tag }}
