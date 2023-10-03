@@ -10,6 +10,14 @@ on:
 
 jobs:
   delete:
+    strategy:
+      matrix:
+        image: 
+          - vscode-devcontainers/commons
+          - vscode-devcontainers/devops
+          - vscode-devcontainers/python
+          - vscode-devcontainers/commons-golang
+
     # if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
@@ -21,10 +29,11 @@ jobs:
           echo "image_tag=$image_tag" >> $GITHUB_OUTPUT
       - name: Delete image
         uses: lazyfrosch/ghcr-delete-image-action@main
+        continue-on-error: true
         with:
           # NOTE: at now only orgs is supported
           owner: ${{ github.actor }}
-          name: vscode-devcontainers/commons
+          name:  ${{ matrix.image }}
           is_user: true
           # NOTE: using Personal Access Token
           token: ${{ secrets.GITHUB_TOKEN }}
