@@ -1,0 +1,30 @@
+name: Branch Deleted
+
+#on: delete
+
+on:
+  push:
+    branches: ["feature/bump-up", "master"]
+  pull_request:
+    branches: [master]
+
+jobs:
+  delete:
+    # if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - id: env-setup
+        run: |
+          export image_tag=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          export image_tag=$(echo $image_tag | tr / -)
+           
+          echo "image_tag=$image_tag" >> $GITHUB_OUTPUT
+      - name: Delete image
+        uses: bots-house/ghcr-delete-image-action@v1.1.0
+        with:
+          # NOTE: at now only orgs is supported
+          owner: ${{ github.actor }}
+          name: commons
+          # NOTE: using Personal Access Token
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.env-setup.outputs.image_tag }}
